@@ -1,0 +1,32 @@
+#main-navbar-wrapper {
+	font-size: 1.5em;
+
+	
+}
+
+#main-navbar-wrapper a {
+	color: #0083FF;
+}
+
+#main-navbar-wrapper a:hover {
+	color: green;
+}
+
+.navbar-brand {
+	font-size: 1.5em;
+}
+
+
+#banner img {
+	width: 100%;
+	display: block;
+	margin: auto;
+}
+
+
+
+
+.large-title {
+	font-size: 4.5em;
+
+}
