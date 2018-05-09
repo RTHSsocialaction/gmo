@@ -30,3 +30,15 @@
 	font-size: 4.5em;
 
 }
+
+.less-large-title {
+	font-size: 3.7em;
+
+}
+
+
+.team-member-photo {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+}
