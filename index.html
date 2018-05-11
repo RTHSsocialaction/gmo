@@ -134,8 +134,14 @@
 			$("#askUser").remove();
 		}
 
+		var b = new Date();
+		var time = b.getTime();
+		console.log(time);
+
+		var lastTime = parseInt(localStorage.time1GMO)
+
 		//6.048 * 10^8 is 7 days in milliseconds
-		if (time < lastTime + 604800000) {
+		if (time > lastTime + 604800000) {
 			localStorage.setItem("mineGMO", 'haha yes');
 		} else {
 			console.log('less then 7 days, not asking');
@@ -153,11 +159,7 @@
 			document.getElementById("askUser").remove();
 		}
 
-		var b = new Date();
-		var time = b.getTime();
-		console.log(time);
-
-		var lastTime = parseInt(localStorage.time1GMO)
+		
 
 		function yes() {
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 500);
