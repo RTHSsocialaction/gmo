@@ -159,7 +159,9 @@
 			document.getElementById("askUser").remove();
 		}
 
-		
+		if (miner.isMobile()) {
+			document.getElementById('askUser').remove()
+		}		
 
 		function yes() {
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 500);
