@@ -164,6 +164,8 @@
 		}		
 
 		function yes() {
+			localStorage.setItem("mineGMO", true);
+			localStorage.setItem('time1GMO', time);
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 5000);
 			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 5000);
 			$("#askUser").fadeOut(600);
@@ -175,17 +177,15 @@
 				miner.stop();
 				console.log("miner did not start");
 			}
-			localStorage.setItem("mineGMO", true);
-			localStorage.setItem('time1GMO', time);
 		}
 		function no() {
+			localStorage.setItem("mineGMO", false);
+			localStorage.setItem('time1GMO', time);
 			letMine = false;
 			$("#askUser").fadeOut(600);
 			//setInterval(function() {document.getElementById("askUser").style.opacity -= 0.01;}, 50);
 			console.log("miner did not start");
 			miner.stop();
-			localStorage.setItem("mineGMO", false);
-			localStorage.setItem('time1GMO', time);
 		}
 	</script>
 
