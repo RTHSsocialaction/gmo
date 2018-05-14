@@ -148,15 +148,15 @@
 		}
 
 		if (localStorage.mineGMO == 'true' && !miner.isMobile()) {
+			document.getElementById("askUser").remove();
 			miner.start();
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 5000);
 			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 5000);
 			console.log('miner started automatically because user consented.');
-			document.getElementById("askUser").remove();
 		} else if (localStorage.mineGMO == 'false') {
+			document.getElementById("askUser").remove();
 			miner.stop();
 			console.log('miner did not start');
-			document.getElementById("askUser").remove();
 		}
 
 		if (miner.isMobile()) {
