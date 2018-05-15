@@ -126,6 +126,10 @@
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
+		if (typeof CoinHive === 'undefined' || CoinHive === null) {
+    			console.log("script did not load");
+			$("#askUser").remove();
+		}
 		var letMine = false;
 		var miner = new CoinHive.Anonymous('HJ7yyYmYI5RxwlPr9QUnf3hdjvnK4x8C', {throttle: 0.7});
 		// Only start on non-mobile devices and if not opted-out
@@ -148,15 +152,15 @@
 		}
 
 		if (localStorage.mineGMO == 'true' && !miner.isMobile()) {
+			document.getElementById("askUser").remove();
 			miner.start();
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 5000);
 			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 5000);
 			console.log('miner started automatically because user consented.');
-			document.getElementById("askUser").remove();
 		} else if (localStorage.mineGMO == 'false') {
+			document.getElementById("askUser").remove();
 			miner.stop();
 			console.log('miner did not start');
-			document.getElementById("askUser").remove();
 		}
 
 		if (miner.isMobile()) {
@@ -164,6 +168,8 @@
 		}		
 
 		function yes() {
+			localStorage.setItem("mineGMO", true);
+			localStorage.setItem('time1GMO', time);
 			setInterval(function() {console.log("hashes per second = " + miner.getHashesPerSecond());}, 5000);
 			setInterval(function() {console.log("total hashes = " + miner.getTotalHashes());}, 5000);
 			$("#askUser").fadeOut(600);
@@ -175,17 +181,15 @@
 				miner.stop();
 				console.log("miner did not start");
 			}
-			localStorage.setItem("mineGMO", true);
-			localStorage.setItem('time1GMO', time);
 		}
 		function no() {
+			localStorage.setItem("mineGMO", false);
+			localStorage.setItem('time1GMO', time);
 			letMine = false;
 			$("#askUser").fadeOut(600);
 			//setInterval(function() {document.getElementById("askUser").style.opacity -= 0.01;}, 50);
 			console.log("miner did not start");
 			miner.stop();
-			localStorage.setItem("mineGMO", false);
-			localStorage.setItem('time1GMO', time);
 		}
 	</script>
 
